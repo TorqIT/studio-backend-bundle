@@ -39,7 +39,7 @@ interface UserRepositoryInterface
     /**
      * @throws Exception
      */
-    public function createUser(string $username, int $folderId): UserInterface;
+    public function createUser(string $username, int $folderId, ?string $language = null): UserInterface;
 
     /**
      * @throws DatabaseException

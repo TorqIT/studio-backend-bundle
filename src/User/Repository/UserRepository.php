@@ -71,14 +71,21 @@ final readonly class UserRepository implements UserRepositoryInterface
     /**
      * @throws Exception
      */
-    public function createUser(string $username, int $folderId): UserInterface
+    public function createUser(string $username, int $folderId, ?string $language = null): UserInterface
     {
-        return $this->userResolver->create([
+        $user = $this->userResolver->create([
             'parentId' => $folderId,
             'name' => $username,
             'password' => '',
             'active' => true,
         ]);
+
+        if ($language !== null && $language !== '') {
+            $user->setLanguage($language);
+            $user->save();
+        }
+
+        return $user;
     }
 
     public function updateUser(UserInterface $user): void

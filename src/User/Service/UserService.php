@@ -140,8 +140,10 @@ final readonly class UserService implements UserServiceInterface
             $folderId = $this->userFolderRepository->getUserFolderById($createParameter->getParentId())->getId();
         }
 
+        $language = $this->securityService->getCurrentUser()->getLanguage();
+
         try {
-            $user = $this->userRepository->createUser($createParameter->getName(), $folderId);
+            $user = $this->userRepository->createUser($createParameter->getName(), $folderId, $language);
         } catch (Exception $exception) {
             throw new DatabaseException(
                 sprintf(
